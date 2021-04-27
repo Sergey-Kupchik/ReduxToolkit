@@ -1,6 +1,7 @@
 import {Dispatch} from 'redux'
 import {authAPI} from '../api/todolists-api'
 import {setIsLoggedInAC} from '../features/Login/auth-reducer'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState: InitialStateType = {
     status: 'idle',
@@ -21,6 +22,37 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
     }
 }
 
+// export const appSlice = createSlice({
+//     name: 'app',
+//     initialState: initialState,
+//     reducers: {
+//         setStatus: (state:InitialStateType,action:any) => {
+//             state.status=action.status
+//         },
+//         decrement: (state) => {
+//             state.value -= 1
+//         },
+//         incrementByAmount: (state, action) => {
+//             state.value += action.payload
+//         },
+//     },
+// })
+//
+// // Action creators are generated for each case reducer function
+// export const { increment, decrement, incrementByAmount } = counterSlice.actions
+//
+// export default counterSlice.reducer
+
+
+
+
+
+
+
+
+
+
+
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type InitialStateType = {
     // происходит ли сейчас взаимодействие с сервером
@@ -38,7 +70,7 @@ export const setAppInitializedAC = (value: boolean) => ({type: 'APP/SET-IS-INITI
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     authAPI.me().then(res => {
         if (res.data.resultCode === 0) {
-            dispatch(setIsLoggedInAC(true));
+            dispatch(setIsLoggedInAC({value:true}));
         } else {
 
         }
